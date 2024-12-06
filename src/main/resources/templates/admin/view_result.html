@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" th:replace="~{Result_Layout :: layout(~{::title} , ~{::section}) }">
+
+<head>
+	<meta charset="UTF-8">
+	<title>View Result</title>
+
+</head>
+
+<body>
+	<section>
+		<h1 class="centered text-center"><u>Examination System Result</u></h1>
+
+		<div class="container p-5">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="card">
+
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Username</th>
+										<th>Coursename</th>
+										<th>Score</th>
+										<th>Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="result : ${results}">
+										<td th:text="${result.username}"></td>
+										<td th:text="${result.coursename}"></td>
+										<td th:text="${result.score}"></td>
+										<td th:text="${result.date}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<th:block th:if="${session.msg}">
+			<p class="text-center text-success fs-4">[[${session.msg}]]</p>
+			<th:block th:text="${@courseServiceImplement.removeSessionMessage()}"></th:block>
+		</th:block>
+
+
+
+
+	</section>
+
+
+
+</body>
+
+</html>

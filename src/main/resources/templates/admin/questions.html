@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+	th:replace="~{Level-Layout :: layout(~{::title} , ~{::section}, ~{::script},~{::style}, ~{::li}) }">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Questions</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* Adjust vertical alignment */
+            width: 400px; /* Adjust width as needed */
+            height: 200px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 30px; /* Increased padding for more space */
+            border-radius: 5px;
+            background-color: #f2f2f2; /* Light gray background */
+            z-index: 1; /* Container on top of base layer */
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-decoration: underline; /* Underline the title */
+            z-index: 2; /* Title above dropdown and container */
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            margin-right: 20px; /* Increased spacing between label and dropdown */
+            font-size: 18px; /* Increase label size */
+        }
+
+        select#course {
+            width: 200px; /* Increase dropdown size */
+            height: 30px; /* Increase dropdown size */
+            font-size: 16px; /* Increase dropdown font size */
+            padding: 5px; /* Add padding for better spacing */
+            border: 1px solid #ccc; /* Add border for dropdown */
+            border-radius: 3px; /* Add border radius for dropdown */
+        }
+
+        input[type="submit"] {
+            margin-top: 20px; /* Add space above the button */
+            padding: 10px 20px; /* Increase button size */
+            border: none; /* Remove default border */
+            background-color: #333; /* Set button color */
+            color: white; /* Set button text color */
+            font-size: 16px; /* Increase button font size */
+            cursor: pointer; /* Set cursor to pointer on hover */
+            border-radius: 5px; /* Add border radius for button */
+            transition: background-color 0.2s ease; /* Smooth transition effect */
+            z-index: 2; /* Button above dropdown and container */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4CAF50; /* Change button color on hover */
+        }
+    </style>
+	<script>
+	    $(document).ready(function () {
+	        $('#course').change(function () {
+	            var courseId = $(this).val();
+	            $('#courseForm').attr('action', '/admin/questions/course/' + courseId);
+	        });
+			
+			$('#course').trigger('change');
+	    });
+		
+		$('#addQuestionLink').click(function (e) {
+	               e.preventDefault(); // Prevent default link behavior
+	               let courseId = $('#course').val();
+	               window.location.href = '/admin/questions/course/' + courseId + "/addQuestion"; // Navigate to the specified URL with courseId
+		  });
+	</script>
+</head>
+<li th:if="${selectedCourseId != null}" class="nav-item" the><a class="nav-link active" aria-current="page" id="addQuestionLink">Add Question</a></li>
+<section>
+
+    <div class="container">
+        <h2>Select Course</h2>
+        <form id="courseForm" method="get">
+            <div class="form-group">
+                <label for="course">Choose a course:</label>
+                <select name="course" id="course">
+					<option th:each="c:${courses}" th:value="${c.id}" th:selected="${c.id == selectedCourseId}">[[${c.name}]]</option>
+                 </select>
+            </div>
+            <input type="submit" value="Select Course">
+        </form>
+    </div>
+	
+	<div class="container">
+	    <h4 class="text-center">All Questions for the Selected Course:</h4>
+	    <table class="table table-striped table-bordered">
+	        <thead>
+	            <tr>
+					<th>Serial Number</th>
+	                <th>Question</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr	th:each="question, rowStat : ${questions}">
+					<td th:text="${rowStat.count}"></td>
+	                <td th:text="${question.question}"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
+	
+</section>
+</html>

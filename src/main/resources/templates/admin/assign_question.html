@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+	th:replace="~{Level-Layout :: layout(~{::title}, ~{::section},~{::script},~{::style}, ~{::li}) }">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Assign Question</title>
+	<style></style>
+	<script>
+		function assignQuestion(courseId, levelId, questionId) {
+		
+		        $.ajax({
+		            type: "POST",
+		            url: "/admin/course/" + courseId + "/level/" + levelId + "/assignQuestion",
+		            data: JSON.stringify({ questionId: questionId }),
+		            contentType: "application/json",
+		            success: function(data) {
+						alert("Assigned question successfully");
+		                // Handle success response
+		                window.location.reload();
+		            },
+		            error: function(xhr, status, error) {
+		                // Handle error response
+		                alert("Error assigning question: " + error);
+		            }
+		        });
+		    }
+	</script>
+</head>
+
+<body>
+	<li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin/courses/add">Add Course</a></li>
+	<section>
+		<div class="container p-5">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="card">
+						<div class="card-header text-center fs-4">Assigned Questions</div>
+
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">S.No</th>
+										<th scope="col">Question</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="question,rowStat:${questions}">
+										<td th:text="${rowStat.count}"></td>
+										<td>[[${question.question}]]</td>
+										<td>
+											<th:block th:if="${#lists.contains(assignedQuestions.![id], question.id)}">
+												<span class="label label-success">Assigned</span>
+											</th:block>
+											<th:block th:unless="${#lists.contains(assignedQuestions, question)}">
+												<button th:onclick="'assignQuestion(' + ${selectedCourseId} + ',' + ${selectedLevelId} + ',' + ${question.id} + ')'" class="btn btn-sm btn-primary">Assign</button>
+											   </th:block>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<th:block th:if="${session.msg}">
+			<p class="text-center text-success fs-4">[[${session.msg}]]</p>
+			<th:block th:text="${@courseServiceImplement.removeSessionMessage()}"></th:block>
+		</th:block>
+
+
+
+
+	</section>
+
+
+
+</body>
+
+</html>

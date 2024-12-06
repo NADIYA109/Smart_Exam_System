@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 500px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            resize: none;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="title">Profile</h2>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" readonly>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" readonly>
+    </div>
+    <div>
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" readonly>
+    </div>
+    <div>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" readonly></textarea>
+    </div>
+    <div class="button-container">
+       <!--  <button class="btn btn-primary">Edit</button> -->
+        <button class="btn btn-secondary">Back</button>
+    </div>
+</div>
+
+<script>
+    // Set admin information
+    document.getElementById('name').value = 'admin';
+    document.getElementById('email').value = 'admin@gmail.com';
+    document.getElementById('mobile').value = '7366555442';
+    document.getElementById('address').value = 'Indore';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

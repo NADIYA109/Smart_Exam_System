@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<title>Course Level</title>
+	<style>
+		/* Custom CSS styles */
+		body {
+			background-color: #f8f9fa;
+			font-family: Arial, sans-serif;
+		}
+
+		.navbar {
+			background-color: #343a40;
+			border-bottom: 1px solid #dee2e6;
+		}
+
+		.navbar-brand {
+			color: #fff;
+			font-size: 24px;
+		}
+
+		.navbar-links {
+			display: flex;
+			align-items: center;
+		}
+
+		.navbar-links a {
+			color: #fff;
+			margin-left: 20px;
+			text-decoration: none;
+			font-size: 18px;
+			transition: color 0.3s ease;
+		}
+
+		.navbar-links a:hover {
+			color: #28a745;
+		}
+
+		h1 {
+			color: #343a40;
+			text-align: center;
+			margin-top: 50px;
+		}
+
+		p {
+			color: #6c757d;
+			text-align: center;
+			margin-bottom: 40px;
+		}
+
+		.dashboard-links {
+			display: flex;
+			justify-content: center;
+			margin-top: 30px;
+		}
+
+		.dashboard-links a {
+			padding: 10px 20px;
+			background-color: #28a745;
+			color: #fff;
+			border-radius: 5px;
+			font-size: 18px;
+			text-decoration: none;
+			margin: 0 20px;
+			transition: background-color 0.3s ease, transform 0.3s ease;
+		}
+
+		.dashboard-links a:hover {
+			background-color: #218838;
+			transform: translateY(-2px);
+		}
+
+		.score-container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			border: 2px solid #28a745;
+			border-radius: 5px;
+			background-color: #f8f9fa;
+		}
+	</style>
+	<!-- Add any CSS or other meta tags here -->
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark">
+		<a class="navbar-brand" href="#">USER DASHBOARD</a>
+		<div class="navbar-collapse justify-content-end navbar-links">
+			<a class="btn btn-danger my-2 my-sm-0" href="/user/edit-profile">Edit Profile</a>
+			<a class="btn btn-primary my-2 my-sm-0" href="/view-result">View Result</a>
+			<a class="btn btn-danger my-2 my-sm-0" href="/logout">Logout</a>
+		</div>
+	</nav>
+
+
+	<div class="score-container">
+		<h1 class="text-center text-success"> Your have scored: <span th:text="${session.score}"></span></h1>
+	</div>
+
+
+</body>
+
+</html>

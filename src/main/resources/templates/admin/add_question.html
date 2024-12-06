@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org"
+	th:replace="~{Level-Layout :: layout(~{::title} , ~{::section}, ~{::script},~{::style}, ~{::li}) }">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* Adjust vertical alignment */
+            width: 400px; /* Adjust width as needed */
+            height: 200px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            padding: 30px; /* Increased padding for more space */
+            border-radius: 5px;
+            background-color: #f2f2f2; /* Light gray background */
+            z-index: 1; /* Container on top of base layer */
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            text-decoration: underline; /* Underline the title */
+            z-index: 2; /* Title above dropdown and container */
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            margin-right: 20px; /* Increased spacing between label and dropdown */
+            font-size: 18px; /* Increase label size */
+        }
+
+        select#course {
+            width: 200px; /* Increase dropdown size */
+            height: 30px; /* Increase dropdown size */
+            font-size: 16px; /* Increase dropdown font size */
+            padding: 5px; /* Add padding for better spacing */
+            border: 1px solid #ccc; /* Add border for dropdown */
+            border-radius: 3px; /* Add border radius for dropdown */
+        }
+
+        input[type="submit"] {
+            margin-top: 20px; /* Add space above the button */
+            padding: 10px 20px; /* Increase button size */
+            border: none; /* Remove default border */
+            background-color: #333; /* Set button color */
+            color: white; /* Set button text color */
+            font-size: 16px; /* Increase button font size */
+            cursor: pointer; /* Set cursor to pointer on hover */
+            border-radius: 5px; /* Add border radius for button */
+            transition: background-color 0.2s ease; /* Smooth transition effect */
+            z-index: 2; /* Button above dropdown and container */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4CAF50; /* Change button color on hover */
+        }
+		section{
+			text-align: center
+		}
+    </style>
+	<script>
+	    $(document).ready(function () {
+
+			$('#manageQuestionLink').click(function (e) {
+			               e.preventDefault();
+						   let courseId = $('#selectedCourseId').val();
+			               window.location.href = '/admin/questions/course/' + courseId; // Navigate to the specified URL with courseId
+				  });
+	    });
+		
+	
+	</script>
+</head>
+<li th:if="${selectedCourseId != null}" class="nav-item" the><a class="nav-link active" aria-current="page" id="manageQuestionLink" href="/admin/courses/add">Manage Questions</a></li>
+<section>
+
+	<h2>Create New Question for <span th:text="${selectedCourseName}"></span></h2>
+	<form id="questionForm" th:action="'/admin/questions/course/' + ${selectedCourseId} + '/addQuestion'" method="post" th:object="${questionForm}">
+		<input type="hidden" id="selectedCourseId" th:value="${selectedCourseId}">
+	       <div>
+	           <label for="question">Question:</label><br>
+	           <textarea id="question" name="question" rows="4" cols="50" th:field="*{question}"></textarea>
+	       </div>
+	       <div>
+	           <label for="option1">Option 1:</label>
+	           <input type="text" id="option1" name="option1" th:field="*{option1}">
+	       </div>
+	       <div>
+	           <label for="option2">Option 2:</label>
+	           <input type="text" id="option2" name="option2" th:field="*{option2}">
+	       </div>
+	       <div>
+	           <label for="option3">Option 3:</label>
+	           <input type="text" id="option3" name="option3" th:field="*{option3}">
+	       </div>
+	       <div>
+	           <label for="option4">Option 4:</label>
+	           <input type="text" id="option4" name="option4" th:field="*{option4}">
+	       </div>
+	       <div>
+	           <label for="correctAnswer">Correct Answer:</label>
+	           <select id="correctAnswer" name="correctAnswer" th:field="*{correctAnswer}">
+	               <option value="1">Option 1</option>
+	               <option value="2">Option 2</option>
+	               <option value="3">Option 3</option>
+	               <option value="4">Option 4</option>
+	           </select>
+	       </div>
+	       <input type="submit" value="Create Question">
+	   </form>
+	
+</section>
+</html>
